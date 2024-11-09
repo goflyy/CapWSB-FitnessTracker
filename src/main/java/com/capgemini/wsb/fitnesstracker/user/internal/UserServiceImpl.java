@@ -63,7 +63,7 @@ public UserSummaryDto createUser(CreateUserDto createUserDto) {
 
     // Zapis nowego użytkownika w bazie danych
     User savedUser = userRepository.save(newUser);
-    return new UserSummaryDto(user.getId(), savedUser.getFirstName(), savedUser.getLastName());
+    return new UserSummaryDto(savedUser.getId(), savedUser.getFirstName(), savedUser.getLastName());
 }
 
 @Override
