@@ -11,8 +11,8 @@ import com.capgemini.wsb.fitnesstracker.user.internal.UserEmailDto;
 
 
 
+import com.capgemini.wsb.fitnesstracker.user.api.UserDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

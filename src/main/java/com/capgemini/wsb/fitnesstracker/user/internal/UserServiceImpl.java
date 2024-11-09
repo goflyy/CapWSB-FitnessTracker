@@ -7,6 +7,7 @@ import com.capgemini.wsb.fitnesstracker.user.api.UserProvider;
 import com.capgemini.wsb.fitnesstracker.user.api.UserService;
 import com.capgemini.wsb.fitnesstracker.user.api.UserSummaryDto;
 
+import com.capgemini.wsb.fitnesstracker.user.api.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,37 @@ abstract
 class UserServiceImpl implements UserService, UserProvider {
 
     private final UserRepository userRepository;
+
+
+    @Override
+    public List<UserEmailDto> findUsersByEmailFragment(String emailFragment) {
+        return userRepository.findByEmailContainingIgnoreCase(emailFragment);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.delete(user.get());
+        } else {
+            throw new IllegalArgumentException("User not found with ID: " + id);
+        }
+    }
+
+    @Override
+    public List<UserDto> getUserDetails(Long id, String firstName, String lastName, LocalDate birthdate, String email) {
+        return userRepository.findUsersByParams(id, firstName, lastName, birthdate, email)
+                .stream()
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getBirthdate(),
+                        user.getEmail()
+                ))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public List<UserEmailDto> findUsersByEmailFragment(String emailFragment) {
