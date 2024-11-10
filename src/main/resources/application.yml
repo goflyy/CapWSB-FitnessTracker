@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com       # Adres serwera SMTP
+    port: 587                    # Port SMTP (zwykle 587 dla TLS)
+    username: zarobkimarekszulak@gmail.com # Login do konta e-mail
+    password: -------       # Hasło do konta e-mail
+    properties:
+      mail:
+        smtp:
+          auth: true             # Wymagane uwierzytelnianie
+          starttls:
+            enable: true         # Włączenie TLS dla bezpieczeństwa
   profiles:
     active: loadInitialData
   datasource:
@@ -9,3 +20,6 @@ spring:
   h2:
     console:
       enabled: true
+
+mail:
+  from: no-reply@fitnesstracker.com    # Domyślny adres nadawcy
