@@ -61,6 +61,12 @@ public class TrainingServiceImpl implements TrainingProvider {
     return dto;
 }
 
+@Override
+    public List<TrainingDTO> getTrainingsByActivityType(ActivityType activityType) {
+        return trainingRepository.findAllByActivityType(activityType).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 
 
     

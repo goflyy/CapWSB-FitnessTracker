@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface TrainingRepository extends JpaRepository<Training, Long> {
     List<Training> findAllByUserId(Long userId);
+    List<Training> findAllByActivityType(ActivityType activityType);
 }
