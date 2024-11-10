@@ -1,5 +1,6 @@
 package com.capgemini.wsb.fitnesstracker.mail.internal;
 
+
 import com.capgemini.wsb.fitnesstracker.mail.api.EmailDto;
 import com.capgemini.wsb.fitnesstracker.mail.api.EmailSender;
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
@@ -9,12 +10,15 @@ import com.capgemini.wsb.fitnesstracker.user.internal.UserRepository;
 import com.capgemini.wsb.fitnesstracker.training.internal.TrainingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
 import java.sql.Date;
 import java.util.List;
+
 
 
 @Service
@@ -26,6 +30,7 @@ public class ReportService {
     private final TrainingRepository trainingRepository;
     private final EmailSender emailSender;
 
+    @Async("async-pool")
     public void generateAndSendReports() {
         List<User> users = userRepository.findAll();
         LocalDate now = LocalDate.now();
