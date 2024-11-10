@@ -8,3 +8,9 @@ mvn -Dtest=UserApiIntegrationTest#shouldReturnAllSimpleUsers_whenGettingAllUsers
 mvn -Dtest=UserApiIntegrationTest#shouldPersistUser_whenCreatingUser test
 
 
+
+
+
+mvn -Dtest=TrainingApiIntegrationTest#shouldReturnAllTrainingsForDedicatedUser_whenGettingAllTrainingsForDedicatedUser test
+
+
