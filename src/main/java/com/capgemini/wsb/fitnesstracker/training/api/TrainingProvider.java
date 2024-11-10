@@ -18,4 +18,5 @@ public interface TrainingProvider {
     Optional<TrainingDTO> getTraining(Long trainingId);
     List<TrainingDTO> getTrainingsByUser(Long userId);
     List<TrainingDTO> getTrainingsByActivityType(ActivityType activityType);
+    TrainingDTO updateTraining(Long trainingId, UpdateTrainingDTO updateTrainingDTO);
 }

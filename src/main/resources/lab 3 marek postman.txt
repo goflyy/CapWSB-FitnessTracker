@@ -1,2 +1,17 @@
 GET http://localhost:8080/v1/trainings/1
 GET http://localhost:8080/v1/trainings/activityType?activityType=TENNIS
+PUT http://localhost:8080/v1/trainings/1
+BODY:
+{
+  "userId": 1,
+  "startTime": "2024-11-15T10:00:00",
+  "endTime": "2024-11-15T11:30:00",
+  "activityType": "CYCLING",
+  "distance": 25.0,
+  "averageSpeed": 15.5
+}
+
+HEADER:
+{
+  "Content-Type": "application/json"
+}

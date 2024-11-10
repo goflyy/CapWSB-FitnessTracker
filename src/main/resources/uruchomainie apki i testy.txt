@@ -14,4 +14,4 @@ mvn -Dtest=UserApiIntegrationTest#shouldPersistUser_whenCreatingUser test
 mvn -Dtest=TrainingApiIntegrationTest#shouldReturnAllTrainingsForDedicatedUser_whenGettingAllTrainingsForDedicatedUser test
 mvn -Dtest=TrainingApiIntegrationTest#getAllTrainingByActivityType_whenGettingAllTrainingByActivityType test
 
-
+mvn -Dtest=TrainingApiIntegrationTest#shouldUpdateTraining_whenUpdatingTraining test

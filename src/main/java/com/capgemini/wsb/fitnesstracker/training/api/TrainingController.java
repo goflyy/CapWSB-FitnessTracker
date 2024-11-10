@@ -29,4 +29,10 @@ public class TrainingController {
         return ResponseEntity.ok(trainings);
     }
 
+    @PutMapping("/{trainingId}")
+    public ResponseEntity<TrainingDTO> updateTraining(@PathVariable Long trainingId, @RequestBody UpdateTrainingDTO updateTrainingDTO) {
+        TrainingDTO updatedTraining = trainingProvider.updateTraining(trainingId, updateTrainingDTO);
+        return ResponseEntity.ok(updatedTraining);
+    }
+
 }

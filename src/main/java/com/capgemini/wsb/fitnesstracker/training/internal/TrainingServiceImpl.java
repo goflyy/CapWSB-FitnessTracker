@@ -4,9 +4,14 @@ import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingDTO;
 
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingProvider;
+import com.capgemini.wsb.fitnesstracker.training.api.UpdateTrainingDTO;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import com.capgemini.wsb.fitnesstracker.user.api.UserDto;
 import com.capgemini.wsb.fitnesstracker.user.internal.UserOlderThanDto;
+
+import com.capgemini.wsb.fitnesstracker.user.internal.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -21,9 +26,32 @@ import org.springframework.stereotype.Service;
 public class TrainingServiceImpl implements TrainingProvider {
 
     private final TrainingRepository trainingRepository;
+    private final UserRepository userRepository;
 
-    public TrainingServiceImpl(TrainingRepository trainingRepository) {
+    public TrainingServiceImpl(TrainingRepository trainingRepository, UserRepository userRepository) {
         this.trainingRepository = trainingRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Transactional
+    @Override
+    public TrainingDTO updateTraining(Long trainingId, UpdateTrainingDTO updateTrainingDTO) {
+        Training training = trainingRepository.findById(trainingId)
+                .orElseThrow(() -> new IllegalArgumentException("Training not found"));
+
+        User user = userRepository.findById(updateTrainingDTO.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        training.setUser(user);
+        training.setStartTime(updateTrainingDTO.getStartTime());
+        training.setEndTime(updateTrainingDTO.getEndTime());
+        training.setActivityType(updateTrainingDTO.getActivityType());
+        training.setDistance(updateTrainingDTO.getDistance());
+        training.setAverageSpeed(updateTrainingDTO.getAverageSpeed());
+
+        trainingRepository.save(training);
+
+        return mapToDTO(training);
     }
 
     @Override
